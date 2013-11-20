@@ -6,16 +6,12 @@ sbtPlugin := true
 
 releaseSettings
 
-publishTo := {
-  val isSnapshot = version.value.contains("-SNAPSHOT")
-  val scalasbt = "http://scalasbt.artifactoryonline.com/scalasbt/"
-  val (name, url) = if (isSnapshot)
-    ("typesafe-sbt-plugin-snapshots", scalasbt+"sbt-plugin-snapshots")
+publishTo <<= version { (v: String) =>
+  val nexus = "http://nexus.aquto.internal:8081/nexus/content/repositories/"
+  if (v.trim.endsWith("SNAPSHOT"))
+    Some("snapshots" at nexus + "snapshots")
   else
-    ("typesafe-sbt-plugin-releases", scalasbt+"sbt-plugin-releases")
-  Some(Resolver.url(name, new URL(url))(Resolver.ivyStylePatterns))
+    Some("releases"  at nexus + "releases")
 }
 
-publishMavenStyle := false
-
-
+publishMavenStyle := true

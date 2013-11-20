@@ -39,12 +39,7 @@ class TeamCityTestListener extends TestReportListener {
       // so a nasty bit of synchronisation here to stop that happening
       synchronized {
 
-        val testName = e.selector match {
-          case s: TestSelector => s.testName
-          // I can't think when you would have anything other than a TestSelector, but
-          // try to do something vaguely useful in that case
-          case _ => e.fullyQualifiedName
-        }
+        val testName = e.fullyQualifiedName
 
         // this is a lie: the test has already been executed and started by this point,
         // but sbt doesn't send an event when test starts

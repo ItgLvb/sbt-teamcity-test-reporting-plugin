@@ -1,3 +1,5 @@
+scalaVersion := "2.12.3"
+
 name := "sbt-teamcity-test-reporting-plugin"
 
 organization := "com.gu"

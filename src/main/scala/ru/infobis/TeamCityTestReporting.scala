@@ -1,4 +1,4 @@
-package com.gu
+package ru.infobis
 
 import sbt._
 import sbt.testing.{TestSelector, Event, OptionalThrowable, Status}
@@ -6,8 +6,8 @@ import sbt.testing.{TestSelector, Event, OptionalThrowable, Status}
 import Keys._
 import java.io.{PrintWriter, StringWriter}
 
-object TeamCityTestReporting extends Plugin {
-  override def settings = Seq(
+object TeamCityTestReporting extends AutoPlugin {
+  override def projectSettings = Seq(
     testListeners ++= TeamCityTestListener.ifRunningUnderTeamCity
   )
 }
@@ -92,8 +92,8 @@ class TeamCityTestListener extends TestReportListener {
 }
 
 object TeamCityTestListener {
-  private lazy val teamCityProjectName = Option(System.getenv("TEAMCITY_PROJECT_NAME"))
-  lazy val ifRunningUnderTeamCity = teamCityProjectName.map(ignore => new TeamCityTestListener).toSeq
+  private lazy val teamCityProjectName = Some(System.getenv("TEAMCITY_PROJECT_NAME"))
+  lazy val ifRunningUnderTeamCity = teamCityProjectName.map(_ => new TeamCityTestListener).toSeq
 }
 
 

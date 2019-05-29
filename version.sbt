@@ -1,1 +1,1 @@
-version in ThisBuild := "1.6-aquto-SNAPSHOT"
+version in ThisBuild := "1.6-infobis-SNAPSHOT"

@@ -1,19 +1,9 @@
-scalaVersion := "2.12.3"
-
 name := "sbt-teamcity-test-reporting-plugin"
 
-organization := "com.gu"
+organization := "ru.infobis"
 
 sbtPlugin := true
 
-releaseSettings
+publishTo := Some("Artifactory Realm" at "http://artifactory.infobis.ru/artifactory/sbt")
 
-publishTo <<= version { (v: String) =>
-  val nexus = "http://nexus.aquto.internal:8081/nexus/content/repositories/"
-  if (v.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at nexus + "snapshots")
-  else
-    Some("releases"  at nexus + "releases")
-}
-
-publishMavenStyle := true
+credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
